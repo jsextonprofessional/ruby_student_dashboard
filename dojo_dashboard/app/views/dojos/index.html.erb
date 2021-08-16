@@ -1,0 +1,27 @@
+<h1>Listing <%= @count%> Dojos</h1>
+<h2><%= flash[:success]%></h2>
+<table>
+    <tr>
+        <th>Coding Dojo Branch</th>
+        <th>Street</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Actions</th>
+    </tr>
+    <% @dojos.each do |dojo| %>
+    <tr>
+        <td><%= dojo.branch%></td>
+        <td><%= dojo.street%></td>
+        <td><%= dojo.city%></td>
+        <td><%= dojo.state%></td>
+        <td><a href="/dojos/<%= dojo.id%>">Show</a> | <a href="/dojos/<%= dojo.id%>/edit">Edit</a> | </td>
+        <td>
+            <form action="/dojos/<%= dojo.id%>" method="POST">
+                <input type="hidden" name="_method" value="delete">
+                <input type="submit" value="Delete">
+            </form>
+        </td>
+    </tr>
+    <% end %>
+</table><br><br>
+<a href="/dojos/new">new dojo</a>
