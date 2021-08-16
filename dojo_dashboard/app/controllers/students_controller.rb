@@ -1,35 +1,34 @@
-require_relative 'dojos_controller'
 class StudentsController < ApplicationController
-
-    def index
-        @dojos = Dojo.find(params[:id])
-        @student = Student.find(params[:id])
-    end
 
     def new
         @dojos = Dojo.all
+        @dojo = Dojo.find(params[:dojo_id])
     end
 
     def create
-        @dojo = Dojo.find(params[:id])
         @student = Student.create(student_params)
-        redirect_to "/dojos/:dojo_id"
+        redirect_to "/dojos/#{@student.dojo_id}"
     end
 
     def show
-        @dojo = Dojo.find(params[:id])
-        @student = Student.find(params[:id])
+        @student = Dojo.joiner(params[:id])
+        @students = Student.cohort(@student)
     end
 
     def edit
-        @dojo = Dojo.find(params[:id])    
+        @dojod = Dojo.all
         @student = Student.find(params[:id])
     end
 
     def update
         @student = Student.find(params[:id])
         @student.update(student_params)
-        redirect_to "/dojos/#{@dojo.id}/students/#{@student.id}"
+        redirect_to "/dojos/#{@student.dojo_id}/students/#{@student.id}"
+    end
+
+    def destroy
+        Student.find(params[:id])
+        redirect_to :root
     end
 
     private

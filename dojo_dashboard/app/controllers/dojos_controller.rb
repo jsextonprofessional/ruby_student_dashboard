@@ -5,6 +5,7 @@ class DojosController < ApplicationController
     end
 
     def new
+        @dojo = Dojo.new
     end
     
     def create
@@ -20,7 +21,7 @@ class DojosController < ApplicationController
 
     def show
         @dojo = Dojo.find(params[:id])
-        @students = Student.all
+        @students = @dojo.students
     end
 
     def edit
@@ -40,7 +41,7 @@ class DojosController < ApplicationController
     end
 
     private
-    def dojo_params
-        params.require(:dojo).permit(:branch, :street, :city, :state)
-    end
+        def dojo_params
+            params.require(:dojo).permit(:branch, :street, :city, :state)
+        end
 end
